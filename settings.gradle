@@ -12,5 +12,4 @@ plugins {
 
 rootProject.name = 'gradle-multi-project-composite-build-clean-architecture'
 include('domain', 'usecase')
-include('infrastructure:web', 'infrastructure:db')
 include('app:web')
