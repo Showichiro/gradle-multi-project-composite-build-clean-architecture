@@ -22,6 +22,7 @@ public class Order extends AbstractEntity<Long> {
         validateQuantity(quantity);
         validateCustomerInfo(customerInfo);
         this.setId(id);
+        this.quantity = quantity;
         this.customerInfo = customerInfo;
         this.inventoryId = inventoryId;
         this.inventoryName = inventoryName;
