@@ -13,4 +13,6 @@ public interface IGateway<S, ID> {
     Optional<S> findById(ID id);
 
     List<S> findAll();
+
+    List<S> findAll(int size, int page);
 }
