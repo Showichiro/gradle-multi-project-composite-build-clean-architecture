@@ -13,25 +13,24 @@ import com.example.domain.inventory.gateway.IInventoryGateway;
 @ExtendWith(MockitoExtension.class)
 class DeleteInventoryUseCaseTest {
 
-    @Mock
-    private IInventoryGateway inventoryGateway;
+  @Mock private IInventoryGateway inventoryGateway;
 
-    private DeleteInventoryUseCase useCase;
+  private DeleteInventoryUseCase useCase;
 
-    @BeforeEach
-    void setUp() {
-        useCase = new DeleteInventoryUseCase(inventoryGateway);
-    }
+  @BeforeEach
+  void setUp() {
+    useCase = new DeleteInventoryUseCase(inventoryGateway);
+  }
 
-    @Test
-    void deleteInventory_CallsGatewayDelete() {
-        // Arrange
-        Long inventoryId = 1L;
+  @Test
+  void deleteInventory_CallsGatewayDelete() {
+    // Arrange
+    Long inventoryId = 1L;
 
-        // Act
-        useCase.deleteInventory(inventoryId);
+    // Act
+    useCase.deleteInventory(inventoryId);
 
-        // Assert
-        verify(inventoryGateway).delete(inventoryId);
-    }
+    // Assert
+    verify(inventoryGateway).delete(inventoryId);
+  }
 }

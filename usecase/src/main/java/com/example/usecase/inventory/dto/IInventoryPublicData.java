@@ -1,9 +1,9 @@
 package com.example.usecase.inventory.dto;
 
 public interface IInventoryPublicData {
-    Long id();
+  Long id();
 
-    String name();
+  String name();
 
-    int quantity();
+  int quantity();
 }

@@ -22,68 +22,67 @@ import com.example.usecase.inventory.dto.TestInventorySearchData;
 @ExtendWith(MockitoExtension.class)
 class SearchInventoryUseCaseTest {
 
-    @Mock
-    private IInventoryGateway inventoryGateway;
+  @Mock private IInventoryGateway inventoryGateway;
 
-    private SearchInventoryUseCase useCase;
+  private SearchInventoryUseCase useCase;
 
-    @BeforeEach
-    void setUp() {
-        useCase = new SearchInventoryUseCase(inventoryGateway);
-    }
+  @BeforeEach
+  void setUp() {
+    useCase = new SearchInventoryUseCase(inventoryGateway);
+  }
 
-    @Test
-    void searchInventories_WithResults_ReturnsInventoryList() {
-        // Arrange
-        int size = 10;
-        int page = 0;
-        TestInventorySearchData data = new TestInventorySearchData(size, page);
+  @Test
+  void searchInventories_WithResults_ReturnsInventoryList() {
+    // Arrange
+    int size = 10;
+    int page = 0;
+    TestInventorySearchData data = new TestInventorySearchData(size, page);
 
-        Inventory inventory1 = new Inventory(1L, "Item 1", 10);
-        Inventory inventory2 = new Inventory(2L, "Item 2", 20);
-        List<Inventory> expectedInventories = Arrays.asList(inventory1, inventory2);
+    Inventory inventory1 = new Inventory(1L, "Item 1", 10);
+    Inventory inventory2 = new Inventory(2L, "Item 2", 20);
+    List<Inventory> expectedInventories = Arrays.asList(inventory1, inventory2);
 
-        when(inventoryGateway.findAll(size, page)).thenReturn(expectedInventories);
+    when(inventoryGateway.findAll(size, page)).thenReturn(expectedInventories);
 
-        // Act
-        List<Inventory> result = useCase.searchInventories(data);
+    // Act
+    List<Inventory> result = useCase.searchInventories(data);
 
-        // Assert
-        assertEquals(2, result.size());
-        assertEquals(expectedInventories, result);
-        verify(inventoryGateway).findAll(size, page);
-    }
+    // Assert
+    assertEquals(2, result.size());
+    assertEquals(expectedInventories, result);
+    verify(inventoryGateway).findAll(size, page);
+  }
 
-    @Test
-    void searchInventories_NoResults_ReturnsEmptyList() {
-        // Arrange
-        int size = 10;
-        int page = 0;
-        TestInventorySearchData data = new TestInventorySearchData(size, page);
+  @Test
+  void searchInventories_NoResults_ReturnsEmptyList() {
+    // Arrange
+    int size = 10;
+    int page = 0;
+    TestInventorySearchData data = new TestInventorySearchData(size, page);
 
-        when(inventoryGateway.findAll(size, page)).thenReturn(Collections.emptyList());
+    when(inventoryGateway.findAll(size, page)).thenReturn(Collections.emptyList());
 
-        // Act
-        List<Inventory> result = useCase.searchInventories(data);
+    // Act
+    List<Inventory> result = useCase.searchInventories(data);
 
-        // Assert
-        assertTrue(result.isEmpty());
-        verify(inventoryGateway).findAll(size, page);
-    }
+    // Assert
+    assertTrue(result.isEmpty());
+    verify(inventoryGateway).findAll(size, page);
+  }
 
-    @Test
-    void searchInventories_DifferentPageAndSize_PassesCorrectParameters() {
-        // Arrange
-        int size = 20;
-        int page = 2;
-        TestInventorySearchData data = new TestInventorySearchData(size, page);
+  @Test
+  void searchInventories_DifferentPageAndSize_PassesCorrectParameters() {
+    // Arrange
+    int size = 20;
+    int page = 2;
+    TestInventorySearchData data = new TestInventorySearchData(size, page);
 
-        when(inventoryGateway.findAll(size, page)).thenReturn(Collections.emptyList());
+    when(inventoryGateway.findAll(size, page)).thenReturn(Collections.emptyList());
 
-        // Act
-        useCase.searchInventories(data);
+    // Act
+    useCase.searchInventories(data);
 
-        // Assert
-        verify(inventoryGateway).findAll(size, page);
-    }
+    // Assert
+    verify(inventoryGateway).findAll(size, page);
+  }
 }

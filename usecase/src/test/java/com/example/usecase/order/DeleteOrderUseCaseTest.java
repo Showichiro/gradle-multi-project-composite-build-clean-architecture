@@ -13,25 +13,24 @@ import com.example.domain.order.gateway.IOrderGateway;
 @ExtendWith(MockitoExtension.class)
 class DeleteOrderUseCaseTest {
 
-    @Mock
-    private IOrderGateway orderGateway;
+  @Mock private IOrderGateway orderGateway;
 
-    private DeleteOrderUseCase useCase;
+  private DeleteOrderUseCase useCase;
 
-    @BeforeEach
-    void setUp() {
-        useCase = new DeleteOrderUseCase(orderGateway);
-    }
+  @BeforeEach
+  void setUp() {
+    useCase = new DeleteOrderUseCase(orderGateway);
+  }
 
-    @Test
-    void deleteOrder_CallsGatewayDelete() {
-        // Arrange
-        Long orderId = 1L;
+  @Test
+  void deleteOrder_CallsGatewayDelete() {
+    // Arrange
+    Long orderId = 1L;
 
-        // Act
-        useCase.deleteOrder(orderId);
+    // Act
+    useCase.deleteOrder(orderId);
 
-        // Assert
-        verify(orderGateway).delete(orderId);
-    }
+    // Assert
+    verify(orderGateway).delete(orderId);
+  }
 }

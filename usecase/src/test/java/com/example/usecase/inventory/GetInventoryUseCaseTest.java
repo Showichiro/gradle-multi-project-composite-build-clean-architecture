@@ -19,42 +19,40 @@ import com.example.domain.inventory.model.Inventory;
 @ExtendWith(MockitoExtension.class)
 class GetInventoryUseCaseTest {
 
-    @Mock
-    private IInventoryGateway inventoryGateway;
+  @Mock private IInventoryGateway inventoryGateway;
 
-    private GetInventoryUseCase useCase;
+  private GetInventoryUseCase useCase;
 
-    @BeforeEach
-    void setUp() {
-        useCase = new GetInventoryUseCase(inventoryGateway);
-    }
+  @BeforeEach
+  void setUp() {
+    useCase = new GetInventoryUseCase(inventoryGateway);
+  }
 
-    @Test
-    void getInventory_ExistingId_ReturnsInventory() throws Exception {
-        // Arrange
-        Long inventoryId = 1L;
-        String name = "Test Item";
-        int quantity = 10;
-        Inventory expectedInventory = new Inventory(inventoryId, name, quantity);
-        when(inventoryGateway.findById(inventoryId)).thenReturn(Optional.of(expectedInventory));
+  @Test
+  void getInventory_ExistingId_ReturnsInventory() throws Exception {
+    // Arrange
+    Long inventoryId = 1L;
+    String name = "Test Item";
+    int quantity = 10;
+    Inventory expectedInventory = new Inventory(inventoryId, name, quantity);
+    when(inventoryGateway.findById(inventoryId)).thenReturn(Optional.of(expectedInventory));
 
-        // Act
-        Inventory result = useCase.getInventory(inventoryId);
+    // Act
+    Inventory result = useCase.getInventory(inventoryId);
 
-        // Assert
-        assertEquals(inventoryId, result.getId());
-        assertEquals(name, result.getName());
-        assertEquals(quantity, result.getQuantity());
-    }
+    // Assert
+    assertEquals(inventoryId, result.getId());
+    assertEquals(name, result.getName());
+    assertEquals(quantity, result.getQuantity());
+  }
 
-    @Test
-    void getInventory_NonExistingId_ThrowsInventoryNotFoundException() {
-        // Arrange
-        Long inventoryId = 999L;
-        when(inventoryGateway.findById(inventoryId)).thenReturn(Optional.empty());
+  @Test
+  void getInventory_NonExistingId_ThrowsInventoryNotFoundException() {
+    // Arrange
+    Long inventoryId = 999L;
+    when(inventoryGateway.findById(inventoryId)).thenReturn(Optional.empty());
 
-        // Act & Assert
-        assertThrows(InventoryNotFoundException.class,
-                () -> useCase.getInventory(inventoryId));
-    }
+    // Act & Assert
+    assertThrows(InventoryNotFoundException.class, () -> useCase.getInventory(inventoryId));
+  }
 }

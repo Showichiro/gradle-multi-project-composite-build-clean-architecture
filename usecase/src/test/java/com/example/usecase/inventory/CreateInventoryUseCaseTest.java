@@ -20,82 +20,77 @@ import com.example.usecase.inventory.dto.TestInventoryRegistrationData;
 @ExtendWith(MockitoExtension.class)
 class CreateInventoryUseCaseTest {
 
-    @Mock
-    private IInventoryGateway inventoryGateway;
+  @Mock private IInventoryGateway inventoryGateway;
 
-    private CreateInventoryUseCase useCase;
+  private CreateInventoryUseCase useCase;
 
-    @BeforeEach
-    void setUp() {
-        useCase = new CreateInventoryUseCase(inventoryGateway);
-    }
+  @BeforeEach
+  void setUp() {
+    useCase = new CreateInventoryUseCase(inventoryGateway);
+  }
 
-    @Test
-    void createInventory_ValidData_CreatesInventory() {
-        // Arrange
-        String name = "Test Item";
-        int quantity = 10;
-        TestInventoryRegistrationData data = new TestInventoryRegistrationData(name, quantity);
-        
-        Long createdId = 1L;
-        Inventory createdInventory = new Inventory(createdId, name, quantity);
-        when(inventoryGateway.create(any(Inventory.class))).thenReturn(createdInventory);
+  @Test
+  void createInventory_ValidData_CreatesInventory() {
+    // Arrange
+    String name = "Test Item";
+    int quantity = 10;
+    TestInventoryRegistrationData data = new TestInventoryRegistrationData(name, quantity);
 
-        // Act
-        Inventory result = useCase.createInventory(data);
+    Long createdId = 1L;
+    Inventory createdInventory = new Inventory(createdId, name, quantity);
+    when(inventoryGateway.create(any(Inventory.class))).thenReturn(createdInventory);
 
-        // Assert
-        verify(inventoryGateway).create(any(Inventory.class));
-        assertEquals(createdId, result.getId());
-        assertEquals(name, result.getName());
-        assertEquals(quantity, result.getQuantity());
-    }
+    // Act
+    Inventory result = useCase.createInventory(data);
 
-    @Test
-    void createInventory_NullName_ThrowsDomainValidationException() {
-        // Arrange
-        String name = null;
-        int quantity = 10;
-        TestInventoryRegistrationData data = new TestInventoryRegistrationData(name, quantity);
+    // Assert
+    verify(inventoryGateway).create(any(Inventory.class));
+    assertEquals(createdId, result.getId());
+    assertEquals(name, result.getName());
+    assertEquals(quantity, result.getQuantity());
+  }
 
-        // Act & Assert
-        assertThrows(DomainValidationException.class,
-                () -> useCase.createInventory(data));
-    }
+  @Test
+  void createInventory_NullName_ThrowsDomainValidationException() {
+    // Arrange
+    String name = null;
+    int quantity = 10;
+    TestInventoryRegistrationData data = new TestInventoryRegistrationData(name, quantity);
 
-    @Test
-    void createInventory_EmptyName_ThrowsDomainValidationException() {
-        // Arrange
-        String name = "";
-        int quantity = 10;
-        TestInventoryRegistrationData data = new TestInventoryRegistrationData(name, quantity);
+    // Act & Assert
+    assertThrows(DomainValidationException.class, () -> useCase.createInventory(data));
+  }
 
-        // Act & Assert
-        assertThrows(DomainValidationException.class,
-                () -> useCase.createInventory(data));
-    }
+  @Test
+  void createInventory_EmptyName_ThrowsDomainValidationException() {
+    // Arrange
+    String name = "";
+    int quantity = 10;
+    TestInventoryRegistrationData data = new TestInventoryRegistrationData(name, quantity);
 
-    @Test
-    void createInventory_BlankName_ThrowsDomainValidationException() {
-        // Arrange
-        String name = "   ";
-        int quantity = 10;
-        TestInventoryRegistrationData data = new TestInventoryRegistrationData(name, quantity);
+    // Act & Assert
+    assertThrows(DomainValidationException.class, () -> useCase.createInventory(data));
+  }
 
-        // Act & Assert
-        assertThrows(DomainValidationException.class,
-                () -> useCase.createInventory(data));
-    }
+  @Test
+  void createInventory_BlankName_ThrowsDomainValidationException() {
+    // Arrange
+    String name = "   ";
+    int quantity = 10;
+    TestInventoryRegistrationData data = new TestInventoryRegistrationData(name, quantity);
 
-    @Test
-    void createInventory_NegativeQuantity_ThrowsDomainValidationException() {
-        // Arrange
-        String name = "Test Item";
-        int quantity = -1;
-        TestInventoryRegistrationData data = new TestInventoryRegistrationData(name, quantity);
+    // Act & Assert
+    assertThrows(DomainValidationException.class, () -> useCase.createInventory(data));
+  }
 
-        // Act & Assert
-        assertThrows(DomainValidationException.class,
-                () -> useCase.createInventory(data));
-    }
+  @Test
+  void createInventory_NegativeQuantity_ThrowsDomainValidationException() {
+    // Arrange
+    String name = "Test Item";
+    int quantity = -1;
+    TestInventoryRegistrationData data = new TestInventoryRegistrationData(name, quantity);
+
+    // Act & Assert
+    assertThrows(DomainValidationException.class, () -> useCase.createInventory(data));
+  }
 }
