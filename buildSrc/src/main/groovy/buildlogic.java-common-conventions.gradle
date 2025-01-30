@@ -5,6 +5,8 @@
 plugins {
     // Apply the java Plugin to add support for Java.
     id 'java'
+    // Apply the spotless Plugin for code formatting
+    id 'com.diffplug.spotless'
 }
 
 repositories {
@@ -24,6 +26,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.11.1'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testImplementation 'org.mockito:mockito-core:5.15.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.15.2'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -36,4 +41,24 @@ java {
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+// Configure Spotless
+spotless {
+    java {
+        // Enable Google Java Style Guide
+        googleJavaFormat()
+        
+        // Configure import order
+        importOrder('java', 'javax', 'org', 'com', '')
+        
+        // Remove unused imports
+        removeUnusedImports()
+        
+        // Enforce Unix line endings
+        lineEndings 'UNIX'
+        
+        // Format Java files only
+        target 'src/*/java/**/*.java'
+    }
 }

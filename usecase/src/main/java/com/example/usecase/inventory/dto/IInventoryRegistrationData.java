@@ -1,7 +1,7 @@
 package com.example.usecase.inventory.dto;
 
 public interface IInventoryRegistrationData {
-    String name();
+  String name();
 
-    int quantity();
+  int quantity();
 }

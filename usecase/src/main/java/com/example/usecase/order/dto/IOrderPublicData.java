@@ -1,13 +1,13 @@
 package com.example.usecase.order.dto;
 
 public interface IOrderPublicData {
-    Long id();
+  Long id();
 
-    long quantity();
+  long quantity();
 
-    String customerInfo();
+  String customerInfo();
 
-    Long inventoryId();
+  Long inventoryId();
 
-    String inventoryName();
+  String inventoryName();
 }

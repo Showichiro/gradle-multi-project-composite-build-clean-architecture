@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import com.example.domain.order.gateway.IOrderGateway;
@@ -52,5 +53,14 @@ public class OrderDatabaseGateway implements IOrderGateway {
     public Order update(Order product) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public List<Order> findAll(int size, int page) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return orderRepository.findAll(pageRequest).getContent()
+                .stream()
+                .map(OrderMapper::toOrder)
+                .toList();
     }
 }

@@ -6,5 +6,5 @@ import lombok.Data;
 
 @Data
 public abstract class AbstractEntity<ID extends Serializable> implements Serializable {
-    private ID id;
+  private ID id;
 }
